@@ -1,0 +1,33 @@
+﻿---
+title: "Why automating your production report is harder than it looks"
+description: "Manual production reports seem simple to automate. They're not. Here's what makes them genuinely difficult and how we approach them."
+date: "2026-05-12"
+tags: ["automation", "manufacturing", "production reporting"]
+category: "Operations"
+coverImage: "/blog/production-report.png"
+---
+
+Every plant manager we've talked to has a version of the same story: three shift supervisors, three spreadsheets, one person who collates them at 7am, and a report that hits the inbox by 8 — if everything goes right.
+
+It looks automatable. It isn't, until you understand why.
+
+## The real complexity
+
+A production report isn't a data export. It's a *reconciled view* of what happened across a shift — and reconciliation is where the complexity lives.
+
+The OEE figure doesn't come from one system. It's calculated from machine runtime (PLC), planned production (ERP), actual output (MES or manual count), and reject data (quality system). Each source has its own latency, its own format, and its own definition of "complete."
+
+Then there's the human layer. Supervisors add context: "Line 3 was down for 40 minutes — waiting on a part." That context doesn't come from any system. It comes from a person who knows the floor.
+
+## What we actually build
+
+An automated production report that people trust looks like this:
+
+1. **Data collection** — pulls from every source on a fixed schedule, handles missing data gracefully
+2. **Reconciliation logic** — applies the same rules a good shift supervisor applies manually
+3. **Exception flagging** — surfaces gaps that need human input rather than hiding them
+4. **Delivery** — formatted report in the inbox before the 7am meeting, with a link to the live dashboard
+
+The result: one report, zero manual assembly, and an audit trail that shows exactly where every figure came from.
+
+The goal isn't to remove the human. It's to give the human the right information, already assembled.

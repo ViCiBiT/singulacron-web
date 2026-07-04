@@ -1,0 +1,46 @@
+---
+title: "Real-time production dashboard for a food processing plant"
+description: "A mid-size food manufacturer was running three shifts blind — no live OEE, no downtime alerts, no consolidated view across lines. We built a dashboard that changed that."
+date: "2026-03-20"
+tags: ["manufacturing", "dashboard", "OEE", "real-time data"]
+category: "Case Study"
+coverImage: "/portfolio/food-plant-dashboard.png"
+client: "Confidential — food processing, 3 production lines, ~180 employees"
+industry: "Food & Beverage"
+problem: "Shift supervisors tracked OEE and downtime manually in spreadsheets. Line performance data reached management the next morning, 12 hours after the shift ended."
+solution: "Event-driven data pipeline pulling from PLCs and the MES, feeding a live dashboard that shows OEE, downtime reasons, and reject rates per line — updated every 30 seconds."
+result: "Downtime detection time dropped from hours to under 2 minutes. Management sees live shift performance for the first time."
+technologies: ["Next.js", "Node.js", "MQTT", "PostgreSQL", "Tailwind CSS"]
+---
+
+## The problem in detail
+
+Three production lines. Each line had a PLC logging runtime data. That data went into a SCADA system that nobody read in real time — it was used for post-shift reporting.
+
+Shift supervisors kept their own tallies. At the end of each shift, they filled in a spreadsheet. Someone collated those spreadsheets and sent a summary to management by 8am.
+
+By the time management saw a problem, the problem was 12 hours old.
+
+## What we built
+
+### Data collection layer
+
+An MQTT broker sits at the edge, subscribed to event topics from each PLC. Every machine start, stop, fault, and product count publishes a message. A lightweight Node.js consumer normalises those messages and writes to a time-series-friendly PostgreSQL schema.
+
+No polling. No batch jobs. Events flow as they happen.
+
+### The dashboard
+
+A Next.js application renders live data for each line: OEE broken down into availability, performance, and quality; a downtime log with duration and reason codes; and a shift summary that updates every 30 seconds.
+
+Supervisors enter downtime reason codes from the floor using a tablet-optimised input screen. That context appears in the dashboard immediately — no separate system, no duplicate entry.
+
+### Alerting
+
+When a line goes down, a Slack message fires within 90 seconds. When OEE drops below threshold, the shift supervisor gets a WhatsApp alert. No email — nobody reads email on the floor.
+
+## What changed
+
+The first week the dashboard went live, the operations manager identified a recurring 20-minute stoppage on Line 2 that had been happening three times a week for months. It had never surfaced in the spreadsheet reports because it was spread across shifts and nobody had connected the pattern.
+
+That stoppage is now on the maintenance schedule.

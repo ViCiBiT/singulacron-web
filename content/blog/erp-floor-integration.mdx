@@ -1,0 +1,31 @@
+﻿---
+title: "Connecting your ERP to the factory floor: what actually works"
+description: "ERP-to-floor integration projects fail more often than they succeed. Here's an honest look at why, and what a working integration looks like."
+date: "2026-04-08"
+tags: ["ERP", "integration", "manufacturing", "system connectivity"]
+category: "Integration"
+coverImage: "/blog/erp-integration.png"
+---
+
+The pitch is simple: connect your ERP to your production floor and get real-time visibility. The reality is that most of these projects either stall in implementation or deliver data nobody trusts.
+
+Here's what we've learned from doing this properly.
+
+## Why they fail
+
+**Wrong integration point.** Most ERP-to-floor integrations try to read from the ERP's reporting layer. That layer is not designed for real-time queries — it's slow, and it doesn't expose the granularity you need.
+
+**No agreed-on data contract.** The ERP says "Order 4821 is released." The MES needs to know which line, which shift, what quantity, and what materials are allocated. If nobody defines that mapping before development starts, you build the integration twice.
+
+**Batch when you need stream.** A nightly sync that refreshes work orders is not floor integration. It's a slow spreadsheet. If the planner releases an order at 10am, the floor needs to see it at 10am.
+
+## What a working integration looks like
+
+Every ERP-to-floor integration we've built shares the same architecture:
+
+- **Event-driven, not batch** — triggered by status changes in the ERP, not by a scheduler
+- **Lightweight middleware** — a translation layer that converts ERP events into floor-readable messages, nothing more
+- **Idempotent writes** — the floor system handles duplicate messages gracefully
+- **Dead-letter queue** — failed events are logged and retried, not silently dropped
+
+The integration doesn't need to be complex. It needs to be reliable and observable. You should be able to see, at any moment, what data is flowing and what isn't.

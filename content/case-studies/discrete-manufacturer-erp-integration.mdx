@@ -1,0 +1,44 @@
+---
+title: "ERP-to-floor integration for a discrete manufacturer"
+description: "A precision parts manufacturer had SAP releasing work orders that the shop floor never saw until a supervisor walked over with a printout. We closed the gap."
+date: "2026-01-15"
+tags: ["ERP", "integration", "SAP", "manufacturing execution"]
+category: "Case Study"
+coverImage: "/portfolio/erp-integration.png"
+client: "Confidential — precision parts manufacturer, job-shop environment, ~90 employees"
+industry: "Manufacturing"
+problem: "Work orders released in SAP reached the shop floor via paper printout. Floor staff had no visibility into priority changes, and SAP had no visibility into actual job progress."
+solution: "Middleware layer that translates SAP work order events into floor-readable messages, and writes completion data back to SAP — no paper, no manual re-entry."
+result: "Work order lead time dropped 18%. Paper-based production routing eliminated across all 12 work centres."
+technologies: ["Node.js", "SAP RFC", "PostgreSQL", "React", "WebSocket"]
+---
+
+## The situation
+
+Job-shop manufacturing runs on sequence and priority. When a customer calls to expedite an order, the planner adjusts priority in SAP. That change used to take 4 hours to reach the floor — because the floor only got updates when a supervisor printed a new job list.
+
+Meanwhile, SAP had no idea which jobs were actually running, which were waiting for material, and which were done. That data lived in the heads of the work-centre operators.
+
+## What we built
+
+### The middleware
+
+SAP exposes work order events via RFC (Remote Function Calls). We built a Node.js service that subscribes to those events — new releases, priority changes, cancellations — and translates them into structured messages delivered to a PostgreSQL database the floor application reads from.
+
+The translation layer is the entire value. SAP speaks SAP. The floor speaks operational reality. The middleware maps between them without either side needing to change.
+
+### The floor application
+
+A React application runs on a shared screen at each work centre. It shows the operator their current queue, sorted by priority. When a job's priority changes in SAP, the queue re-sorts within 15 seconds — no printout, no supervisor walk.
+
+Operators confirm job start and completion through the same screen. That event fires back through the middleware and updates the work order status in SAP.
+
+### What we didn't build
+
+No MES. No full WIP tracking system. No barcode scanners. The scope was a reliable bidirectional bridge between SAP and the floor — nothing more. Adding complexity would have added failure points.
+
+## Outcome
+
+Paper routing eliminated on day one of go-live. The first priority escalation that came through SAP reached the floor in 12 seconds. The operations manager described it as "the first time in 20 years I know what's actually happening on the floor right now."
+
+The 18% lead time reduction came from eliminating queue ambiguity — operators were no longer working from a stale printout that didn't reflect the current priority.
