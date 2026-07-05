@@ -88,7 +88,7 @@ hooks/  public/  styles/globals.css  types/
 ## Content (MDX)
 
 - Blog → `content/blog/*.mdx`, case studies → `content/case-studies/*.mdx`.
-- Frontmatter required: `title`, `description`, `date`, `tags`, `category`, `coverImage`. Case studies also: `client`, `problem`, `solution`, `result`, `technologies`.
+- Frontmatter required: `title`, `description`, `date`, `tags`, `category`, `coverImage`. Case studies also: `client`, `problem`, `solution`, `result`other , `technologies`.
 - Parsing/reading-time/related logic stays in `lib/mdx.ts`. Don't scatter file reads through components.
 
 ## Env
