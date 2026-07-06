@@ -2,8 +2,8 @@
 
 **Last updated:** 2026-07-06
 **Build:** PASSING - lint clean, prod build green
-**Git:** github.com/ViCiBiT/singulacron-web, main pushed
-**Live:** https://singulacron.vercel.app (aliased, READY)
+**Git:** github.com/ViCiBiT/singulacron-web, main pushed (f68939f)
+**Live:** https://singulacron.com (custom domain, READY)
 
 ---
 
@@ -26,23 +26,17 @@
 | Vercel deploy | Live, env vars set (site URL, WhatsApp, PostHog x2, Sentry DSN) |
 | .gitignore / secrets | Verified - .env* ignored, never tracked, no leak in history |
 | Security headers | .claude/settings.local.json + next.config.ts headers() configured |
+| Typography plugin | @plugin "@tailwindcss/typography" wired in app/globals.css - prose on blog/portfolio detail pages styled |
+| Custom domain | Live on singulacron.com, Vercel env NEXT_PUBLIC_SITE_URL updated to match |
+| OG/Twitter image (home) | app/layout.tsx openGraph + twitter now include og-default.png (was missing - only inner pages via generatePageMetadata had it) |
+| Locale fix | openGraph.locale en_ZA -> id_ID (matches WhatsApp +62 Indonesia number) |
+| site.ts fallback domain | Fallback URL synced vercel.app -> singulacron.com |
 
 ---
 
 ## OUTSTANDING
 
-### 1. Wire typography plugin - 2 MIN
-Status: @tailwindcss/typography in package.json but still NOT in app/globals.css. Prose classes on blog/portfolio detail pages render unstyled.
-
-Fix: add near top of app/globals.css (after existing @import lines):
-  @plugin "@tailwindcss/typography";
-
----
-
-### 2. Domain
-Decision made: staying on singulacron.vercel.app, no custom domain purchase for now.
-
----
+None currently open. Site live on custom domain, build/lint green.
 
 ## .env.local Current State (local only, gitignored)
 
@@ -54,7 +48,7 @@ Decision made: staying on singulacron.vercel.app, no custom domain purchase for 
 
 ## Vercel env vars (production) - all set
 
-  NEXT_PUBLIC_SITE_URL=https://singulacron.vercel.app
+  NEXT_PUBLIC_SITE_URL=https://singulacron.com
   NEXT_PUBLIC_WHATSAPP_NUMBER=6281386001526
   NEXT_PUBLIC_POSTHOG_KEY=phc_AsC77Eg...
   NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
