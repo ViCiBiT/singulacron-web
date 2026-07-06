@@ -4,7 +4,7 @@
   tagline: "Precision-fit software — no bloat, no compromise.",
   description:
     "Custom AI-powered software for manufacturers and niche industries. Automate repetitive tasks, connect systems that don't talk, and turn scattered data into actionable decisions.",
-  email: "hello@singulacron.com",
+  email: "vincent@singulacron.com",
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "",
   keywords: [
     "custom software",
