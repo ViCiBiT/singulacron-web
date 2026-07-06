@@ -76,7 +76,7 @@ export default async function BlogPostPage({ params }: Props) {
           <p className="mt-4 text-lg text-muted-foreground">{post.description}</p>
           <div className="mt-6 flex items-center gap-3 text-sm text-muted-foreground">
             <time dateTime={post.date}>
-              {new Date(post.date).toLocaleDateString("en-ZA", {
+              {new Date(post.date).toLocaleDateString("en-GB", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",

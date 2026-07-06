@@ -14,8 +14,22 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteConfig.name,
+    url: siteConfig.url,
+    description: siteConfig.description,
+    email: siteConfig.email,
+    logo: `${siteConfig.url}/icon.svg`,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
       <HeroSection />
       <StatsBar />
       <ServicesPreview />

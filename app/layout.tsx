@@ -1,8 +1,10 @@
-﻿import type { Metadata } from "next";
+﻿import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 import { PHProvider } from "@/components/providers/posthog-provider";
+import { WebVitalsReporter } from "@/components/shared/web-vitals-reporter";
+import { CookieConsent } from "@/components/shared/cookie-consent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,6 +47,10 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#0b0a14",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -58,7 +64,11 @@ export default function RootLayout({
         <noscript>
           <style>{`[data-reveal]{opacity:1 !important;transform:none !important}`}</style>
         </noscript>
-        <PHProvider>{children}</PHProvider>
+        <PHProvider>
+          {children}
+          <WebVitalsReporter />
+          <CookieConsent />
+        </PHProvider>
       </body>
     </html>
   );

@@ -11,6 +11,7 @@ if (typeof window !== "undefined" && process.env.NEXT_PUBLIC_POSTHOG_KEY) {
     ui_host: "https://us.posthog.com",
     capture_pageview: false,
     capture_pageleave: true,
+    opt_out_capturing_by_default: true,
   });
 }
 

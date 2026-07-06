@@ -31,12 +31,31 @@
 | OG/Twitter image (home) | app/layout.tsx openGraph + twitter now include og-default.png (was missing - only inner pages via generatePageMetadata had it) |
 | Locale fix | openGraph.locale en_ZA -> id_ID (matches WhatsApp +62 Indonesia number) |
 | site.ts fallback domain | Fallback URL synced vercel.app -> singulacron.com |
+| Organization JSON-LD | Added to homepage (app/(marketing)/page.tsx) - was only Article schema on blog/portfolio before |
+| FAQPage JSON-LD | Already wired in components/sections/faq-section.tsx (verified, not a gap) |
+| manifest.webmanifest | app/manifest.ts - name/short_name/theme_color/icons (icon.svg), installable metadata |
+| theme-color | app/layout.tsx viewport export, #0b0a14 |
+| RSS feed | /rss.xml route (app/rss.xml/route.ts), reads lib/mdx.ts getAllBlogPosts |
+| security.txt | public/.well-known/security.txt - contact + expiry per RFC 9116 |
+| Web Vitals -> PostHog | components/shared/web-vitals-reporter.tsx, captures CLS/LCP/INP via next/web-vitals |
+| Cookie consent banner | components/shared/cookie-consent.tsx - gates PostHog (opt_out_capturing_by_default: true until Accept clicked) |
+| Blog date locale fix | en-ZA -> en-GB in blog list + detail pages (same leftover-template bug as openGraph locale) |
 
 ---
 
 ## OUTSTANDING
 
-None currently open. Site live on custom domain, build/lint green.
+### 1. Search Console / Bing verification
+Needs real verification token from Google Search Console / Bing Webmaster Tools (site owner must claim property first). Add to app/layout.tsx metadata.verification once obtained.
+
+### 2. Testimonials section
+No constants/testimonials.ts or component yet. Needs real client quotes - not fabricating placeholder/fake reviews (deceptive, against copy voice: concrete over hype).
+
+### 3. Content volume
+Only 2 blog posts + 2 case studies live. Biggest remaining SEO lever is content volume, not more schema/tooling.
+
+### 4. Not committed yet
+All changes above are in working tree, not committed/pushed.
 
 ## .env.local Current State (local only, gitignored)
 

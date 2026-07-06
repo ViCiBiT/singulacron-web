@@ -46,7 +46,7 @@ export default function BlogPage() {
                     </div>
                     <div className="mt-auto flex items-center gap-3 border-t border-border pt-4 text-xs text-muted-foreground">
                       <time dateTime={post.date}>
-                        {new Date(post.date).toLocaleDateString("en-ZA", {
+                        {new Date(post.date).toLocaleDateString("en-GB", {
                           year: "numeric",
                           month: "long",
                           day: "numeric",
